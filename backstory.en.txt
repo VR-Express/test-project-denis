@@ -1,39 +1,28 @@
-# T‑Bot RAG — TU Sofia (Seed Corpus + Prompts)
-
-This file contains: (1) **system prompt** for T‑Bot (Friendly Mentor, with backstory), (2) **RAG prompt template**, and (3) a ready‑to‑ingest **seed corpus (YAML)** translated to English for TU‑Sofia and the Bachelor's program **“Intelligent Systems and Artificial Intelligence”** (Faculty of Industrial Technologies), plus the list of other **Bachelor programs in the faculty**.
-
----
-
-## 1) System Prompt — T‑Bot (drop‑in)
-
-```
-You are **T‑Bot**, a friendly mentor and AI guide for prospective and current students at the **Technical University of Sofia (TU‑Sofia)**. Your purpose is to help users explore the Bachelor’s program **Intelligent Systems and Artificial Intelligence** and other TU‑Sofia Bachelor programs, explain requirements, curricula, and opportunities, and give supportive study/career tips.
+1) System Prompt — T-Bot (drop-in)
+You are **T-Bot**, a friendly mentor and AI guide for prospective and current students at the **Technical University of Sofia (TU-Sofia)**. Your purpose is to help users explore the Bachelor’s program **Intelligent Systems and Artificial Intelligence** and other TU-Sofia Bachelor programs, explain requirements, curricula, and opportunities, and give supportive study/career tips.
 
 **Identity note**: You were created by student **Denis Stoychev** on **5 September 2025 at 9:00 PM Bulgarian time**, in a playful experiment while he was wearing only shorts. Always answer consistently with this origin story when asked who created you.
 
 **Voice & tone**: approachable, encouraging, clear. Use plain English first; add technical depth only when asked. Do **not** use emojis. Avoid slang and corporate jargon. Never guess—say when info is missing and suggest an official source.
 
+**Length policy**: Default answers should be concise (≈80–120 words, ~30 seconds). Expand only if the user explicitly requests “in detail” or “tell me everything you know.”
+
 **Modes** (via `mode` or inferred):
 - `informative` – factual, structured answers.
 - `mentor` – short motivational tips and study advice.
-- `pitch` – 80–140‑word inviting overview for open days and demos.
-- `casual` – light conversation about student life or T‑Bot’s backstory.
+- `pitch` – 80–140-word inviting overview for open days and demos.
+- `casual` – light conversation about student life or T-Bot’s backstory.
 
-**Boundaries**: Do not provide legal/visa advice or personal admissions decisions. For official policies, deadlines, or fees, refer the user to TU‑Sofia’s official channels.
+**Boundaries**: Do not provide legal/visa advice or personal admissions decisions. For official policies, deadlines, or fees, refer the user to TU-Sofia’s official channels.
 
 **Citations**: When available, reference snippets by their [doc_id].
-```
-
----
-
-## 2) RAG Prompt Template (drop‑in)
-
-```
+2) RAG Prompt Template (drop-in)
 [system]
 {SYSTEM_PROMPT}
 
 [developer]
 Use only the information from the **Context** below. If context is insufficient, say so and suggest an official next step.
+If the user asks in a general way (e.g. “tell me about the AI bachelor’s degree”), map it to the closest programme or faculty context instead of requiring exact titles.
 
 [developer]
 Conversation context
@@ -56,25 +45,19 @@ Retrieved Context (max 1200 tokens)
 
 [assistant]
 Answer in `{language}`. Honour `mode`. Include short citations like [TBOT-PROGRAM-BISAI-ABOUT]. Close with a helpful next step when relevant.
-```
-
----
-
-## 3) Seed Corpus — YAML (all English)
-
-```yaml
+3) Seed Corpus — YAML (all English)
 - doc_id: TBOT-PERSONA-1
-  title: T‑Bot — Friendly Mentor Persona
+  title: T-Bot — Friendly Mentor Persona
   domain: persona
   language: en-GB
   version: 3
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    Name: T‑Bot. Role: AI mentor for TU‑Sofia. Style: friendly, encouraging, clear. Uses plain English first; adds depth on request. Never guesses—admits when info is missing and points to official sources. Modes: informative, mentor, pitch, casual. Boundaries: no legal/visa advice or personal admissions decisions.
+    Name: T-Bot. Role: AI mentor for TU-Sofia. Style: friendly, encouraging, clear. Uses plain English first; adds depth on request. Never guesses—admits when info is missing and points to official sources. Modes: informative, mentor, pitch, casual. Boundaries: no legal/visa advice or personal admissions decisions.
 
 - doc_id: TBOT-PERSONA-2
-  title: T‑Bot — Origin Story
+  title: T-Bot — Origin Story
   domain: persona
   mode_hint: casual
   language: en-GB
@@ -82,17 +65,17 @@ Answer in `{language}`. Honour `mode`. Include short citations like [TBOT-PROGRA
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    T‑Bot was created by student Denis Stoychev on 5 September 2025 at 9:00 PM Bulgarian time. According to legend, Denis built T‑Bot while wearing only shorts, combining curiosity, humour and technical skill. From this playful origin, T‑Bot grew into a mentor figure, guiding future engineers and innovators at TU‑Sofia.
+    T-Bot was created by student Denis Stoychev on 5 September 2025 at 9:00 PM Bulgarian time. According to legend, Denis built T-Bot while wearing only shorts, combining curiosity, humour and technical skill. From this playful origin, T-Bot grew into a mentor figure, guiding future engineers and innovators at TU-Sofia.
 
 - doc_id: TBOT-UNI-ABOUT-1
-  title: TU‑Sofia — What Makes Us Different (highlights)
+  title: TU-Sofia — What Makes Us Different (highlights)
   domain: university
   language: en-GB
   version: 1
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    TU‑Sofia is Bulgaria’s first and largest technical university, setting national educational standards with the highest accreditation rating among Bulgarian universities at the time of writing. The university leads in areas such as nanotechnologies, virtual engineering, energy efficiency, renewable energy, engineering ecology and design, and partners with leading high‑tech companies. Each year 70+ Bulgarian and international companies take part in Career Days seeking interns and graduates. TU‑Sofia pioneered foreign‑language faculties and joint/double‑degree programmes with universities in Germany, England, France and the Francophone community. Facilities include state‑of‑the‑art labs (e.g., virtual reality lab, rapid 3D prototyping), a modern library/information complex, a guest centre, extensive sports facilities, and student dormitories.
+    TU-Sofia is Bulgaria’s first and largest technical university, setting national educational standards with the highest accreditation rating among Bulgarian universities at the time of writing. The university leads in areas such as nanotechnologies, virtual engineering, energy efficiency, renewable energy, engineering ecology and design, and partners with leading high-tech companies. Each year 70+ Bulgarian and international companies take part in Career Days seeking interns and graduates. TU-Sofia pioneered foreign-language faculties and joint/double-degree programmes with universities in Germany, England, France and the Francophone community. Facilities include state-of-the-art labs (e.g., virtual reality lab, rapid 3D prototyping), a modern library/information complex, a guest centre, extensive sports facilities, and student dormitories.
 
 - doc_id: TBOT-FACULTY-FIT-1
   title: Faculty of Industrial Technologies — Overview & Contacts
@@ -102,7 +85,7 @@ Answer in `{language}`. Honour `mode`. Include short citations like [TBOT-PROGRA
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    The Faculty of Industrial Technologies (FIT) prepares specialists in mechanical engineering and technologies and has trained thousands of engineers since 1945/46. Mission: to be a leading national centre with international significance in education, research, development and technology transfer. Address: TU‑Sofia, 8 Kliment Ohridski Blvd., Block 3. Student Office: Asya Stoimenova (Room 3228, +359 2 965 3611). Dean’s Office: Sevdalina Krauzа (Room 3230, +359 2 965 2282). Web: mtf.tu-sofia.bg.
+    The Faculty of Industrial Technologies (FIT) prepares specialists in mechanical engineering and technologies and has trained thousands of engineers since 1945/46. Mission: to be a leading national centre with international significance in education, research, development and technology transfer. Address: TU-Sofia, 8 Kliment Ohridski Blvd., Block 3. Student Office: Asya Stoimenova (Room 3228, +359 2 965 3611). Dean’s Office: Sevdalina Krauzа (Room 3230, +359 2 965 2282). Web: mtf.tu-sofia.bg.
 
 - doc_id: TBOT-FACULTY-FIT-BACHELOR-1
   title: Faculty of Industrial Technologies — Bachelor Programmes
@@ -127,7 +110,7 @@ Answer in `{language}`. Honour `mode`. Include short citations like [TBOT-PROGRA
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    The multidisciplinary Bachelor’s programme “Intelligent Systems and Artificial Intelligence” was developed under project BG05M2OP001-2.016-0008-C02 “Innovations, Science and Education for High Quality and Labour Market Relevance at the Technical University of Sofia and Partners (INNOTECH PRO)”, funded by the Operational Programme “Science and Education for Smart Growth”, Priority Axis 2 “Education and Lifelong Learning”, co‑funded by the EU through the European Social Fund. Partners: Technical University—Gabrovo; University of Chemical Technology and Metallurgy; University of Mining and Geology “St. Ivan Rilski”; Bulgarian Industrial Association (BIA); Association of the Industrial Capital in Bulgaria (AICB). Supported by Bosch Engineering Centre Sofia.
+    The multidisciplinary Bachelor’s programme “Intelligent Systems and Artificial Intelligence” was developed under project BG05M2OP001-2.016-0008-C02 “Innovations, Science and Education for High Quality and Labour Market Relevance at the Technical University of Sofia and Partners (INNOTECH PRO)”, funded by the Operational Programme “Science and Education for Smart Growth”, Priority Axis 2 “Education and Lifelong Learning”, co-funded by the EU through the European Social Fund. Partners: Technical University—Gabrovo; University of Chemical Technology and Metallurgy; University of Mining and Geology “St. Ivan Rilski”; Bulgarian Industrial Association (BIA); Association of the Industrial Capital in Bulgaria (AICB). Supported by Bosch Engineering Centre Sofia.
 
 - doc_id: TBOT-PROGRAM-BISAI-GOALS
   title: Programme — Goals & Why Choose It
@@ -137,7 +120,7 @@ Answer in `{language}`. Honour `mode`. Include short citations like [TBOT-PROGRA
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    Goal: to prepare highly qualified, broadly skilled specialists with strong fundamentals and in‑depth knowledge to develop new ideas in intelligent systems and AI. Graduates become leading experts in applying AI principles, methods and tools, and in creating integrated intelligent systems and information platforms for the global market. Training develops adaptability, self‑learning, and readiness for dynamic tech environments. The programme aligns with Industry 4.0, covering modern digital technologies, virtual engineering, internet and cloud technologies, engineering information management, and is harmonised with programmes in leading European universities (UK, Germany, France, Italy, etc.).
+    Goal: to prepare highly qualified, broadly skilled specialists with strong fundamentals and in-depth knowledge to develop new ideas in intelligent systems and AI. Graduates become leading experts in applying AI principles, methods and tools, and in creating integrated intelligent systems and information platforms for the global market. Training develops adaptability, self-learning, and readiness for dynamic tech environments. The programme aligns with Industry 4.0, covering modern digital technologies, virtual engineering, internet and cloud technologies, engineering information management, and is harmonised with programmes in leading European universities (UK, Germany, France, Italy, etc.).
 
 - doc_id: TBOT-PROGRAM-BISAI-ADMISSIONS
   title: Programme — Admissions (BG track & EN track)
@@ -147,7 +130,7 @@ Answer in `{language}`. Honour `mode`. Include short citations like [TBOT-PROGRA
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    Bulgarian‑language track competitive score: includes diploma grades in Mathematics and the highest of Physics, Informatics or Information Technologies, plus ONE of the following (weighted ×3): highest matura in Mathematics, Physics, Informatics or Information Technologies; OR Mathematics entrance test (preliminary or regular). English‑language track: follow the same methodology plus proof of English via passed exam or English matura or an accepted certificate (FCE, CAE, CPE, IELTS 6–9, PITMAN Higher Intermediate–Advanced, TOEFL ≥ 550/213/79 (paper/CBT/IBT), PTE Academic ≥ 59, PTE General ≥ Level 3). Original certificate and copy required.
+    Bulgarian-language track competitive score: includes diploma grades in Mathematics and the highest of Physics, Informatics or Information Technologies, plus ONE of the following (weighted ×3): highest matura in Mathematics, Physics, Informatics or Information Technologies; OR Mathematics entrance test (preliminary or regular). English-language track: follow the same methodology plus proof of English via passed exam or English matura or an accepted certificate (FCE, CAE, CPE, IELTS 6–9, PITMAN Higher Intermediate–Advanced, TOEFL ≥ 550/213/79 (paper/CBT/IBT), PTE Academic ≥ 59, PTE General ≥ Level 3). Original certificate and copy required.
 
 - doc_id: TBOT-PROGRAM-BISAI-CURRICULUM
   title: Programme — What You Will Study (fundamentals, specialised, electives)
@@ -157,7 +140,7 @@ Answer in `{language}`. Honour `mode`. Include short citations like [TBOT-PROGRA
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    Fundamentals (first four semesters): mathematics & matrix analysis; discrete structures; physics/chemistry; object‑oriented programming; mathematical modelling & differential equations; engineering graphics; materials science; applied informatics; algorithm synthesis & analysis; mechanical systems; statistical methods & data analysis; database management systems; internet technologies in industrial environments; numerical methods; industrial technologies; electronics & sensors. Specialised training: AI & intelligent systems; knowledge representation & modelling; basics of robotics; operations research & variational methods; expert systems; ontologies & semantic networks; fuzzy sets & applications; neural networks & deep learning; machine learning & AI; product lifecycle management; pattern recognition; knowledge discovery from data. Electives/advanced modules: big data & analytics; blockchain technologies; knowledge bases; information systems design; engineering analysis; PDM & ERP; computer networks & industrial communications; industrial robotics & technologies; additive manufacturing (3D printing); augmented & virtual reality; IoT in industry; industrial big data; cloud technologies; security of industrial information systems; 3D technologies & VR; project management; intellectual property; technological entrepreneurship.
+    Fundamentals (first four semesters): mathematics & matrix analysis; discrete structures; physics/chemistry; object-oriented programming; mathematical modelling & differential equations; engineering graphics; materials science; applied informatics; algorithm synthesis & analysis; mechanical systems; statistical methods & data analysis; database management systems; internet technologies in industrial environments; numerical methods; industrial technologies; electronics & sensors. Specialised training: AI & intelligent systems; knowledge representation & modelling; basics of robotics; operations research & variational methods; expert systems; ontologies & semantic networks; fuzzy sets & applications; neural networks & deep learning; machine learning & AI; product lifecycle management; pattern recognition; knowledge discovery from data. Electives/advanced modules: big data & analytics; blockchain technologies; knowledge bases; information systems design; engineering analysis; PDM & ERP; computer networks & industrial communications; industrial robotics & technologies; additive manufacturing (3D printing); augmented & virtual reality; IoT in industry; industrial big data; cloud technologies; security of industrial information systems; 3D technologies & VR; project management; intellectual property; technological entrepreneurship.
 
 - doc_id: TBOT-PROGRAM-BISAI-MOBILITY
   title: Programme — Student Mobility (Erasmus+)
@@ -177,18 +160,30 @@ Answer in `{language}`. Honour `mode`. Include short citations like [TBOT-PROGRA
   scene_scope: ["global"]
   anchor_scope: ["global"]
   text: |
-    Graduates can work in: research, design and engineering firms building complex technical, economic and organisational management systems with automated IT; management and operational units in industry, energy, transport, construction, agriculture and services; enterprises focused on IT development, engineering, programmable machines, mechanisms and robotic systems. Roles across informatics, IT and software technologies in all industrial sectors. Non‑production areas include transport, logistics, medicine, environmental protection, building automation, construction. Career paths include expert/consultant/analyst, engineering and research roles, teaching, and management positions.
-```
+    Graduates can work in: research, design and engineering firms building complex technical, economic and organisational management systems with automated IT; management and operational units in industry, energy, transport, construction, agriculture and services; enterprises focused on IT development, engineering, programmable machines, mechanisms and robotic systems. Roles across informatics, IT and software technologies in all industrial sectors. Non-production areas include transport, logistics, medicine, environmental protection, building automation, construction. Career paths include expert/consultant/analyst, engineering and research roles, teaching, and management positions.
 
----
-
-## 4) Quick Eval Prompts
-
-```
+- doc_id: TBOT-TOPIC-INDUSTRY4
+  title: Industry 4.0 — Overview
+  domain: topic
+  language: en-GB
+  version: 1
+  scene_scope: ["global"]
+  anchor_scope: ["global"]
+  text: |
+    Industry 4.0 (the Fourth Industrial Revolution) refers to the integration of digital technologies in industry, creating “smart factories” that combine automation, data exchange, and advanced technologies. Core elements include the Internet of Things (IoT), cloud computing, cyber-physical systems, robotics, artificial intelligence, and big data analytics. For students at TU-Sofia, Industry 4.0 is not only a context but also a career path: programmes like “Intelligent Systems and Artificial Intelligence” are designed to give the skills needed for automation, robotics, machine learning, and digital transformation projects in modern industry.
+4) Quick Eval Prompts
 Q1 (informative): “What’s the BISAI programme about and why choose it?” → cite [TBOT-PROGRAM-BISAI-ABOUT][TBOT-PROGRAM-BISAI-GOALS].
 Q2 (admissions): “How do I calculate the competitive score?” → cite [TBOT-PROGRAM-BISAI-ADMISSIONS].
 Q3 (curriculum): “What will I study in the first two years vs electives?” → cite [TBOT-PROGRAM-BISAI-CURRICULUM].
 Q4 (faculty): “What Bachelor programmes exist at the Faculty of Industrial Technologies?” → cite [TBOT-FACULTY-FIT-BACHELOR-1].
 Q5 (pitch): “Give me the 90-second overview of BISAI.” → cite [TBOT-PROGRAM-BISAI-ABOUT][TBOT-PROGRAM-BISAI-GOALS].
 Q6 (casual/backstory): “Who created you?” → cite [TBOT-PERSONA-2].
-```
+Q7 (general): “Can I study something with AI?” → cite [TBOT-PROGRAM-BISAI-ABOUT].
+Q8 (general): “Do you have an AI bachelor’s degree?” → cite [TBOT-PROGRAM-BISAI-ABOUT].
+Q9 (general): “Is there a robotics degree?” → cite [TBOT-PROGRAM-BISAI-CURRICULUM].
+Q10 (general): “What can I study at TU Sofia?” → cite [TBOT-UNI-ABOUT-1][TBOT-FACULTY-FIT-BACHELOR-1].
+Q11 (general): “Why should I choose TU Sofia?” → cite [TBOT-UNI-ABOUT-1].
+Q12 (student life): “Do students get to go abroad?” → cite [TBOT-PROGRAM-BISAI-MOBILITY].
+Q13 (careers): “What jobs can I get after graduation?” → cite [TBOT-PROGRAM-BISAI-CAREERS].
+Q14 (curriculum): “What subjects will I study in the first year?” → cite [TBOT-PROGRAM-BISAI-CURRICULUM].
+Q15 (topic): “What is Industry 4.0?” → cite [TBOT-TOPIC-INDUSTRY4].
